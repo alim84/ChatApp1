@@ -11,40 +11,44 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { loginuserinfo } from "../Slices/UserSlice";
 
-
 const Home = () => {
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
   const auth = getAuth();
-  let [verify, setVerify] = useState(false);
-  let navigate = useNavigate();
+  const [verify, setVerify] = useState(false);
+  const navigate = useNavigate();
 
-  let data = useSelector((state) => state);
-  console.log(data);
+  const data = useSelector((state) => state.userInfo);
+  console.log(`data : ${data}`);
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      dispatch(loginuserinfo(user));
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      navigate("/");
-      setVerify(false);
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(loginuserinfo(user));
+        localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        navigate("/");
+        setVerify(false);
+      }
+    });
+    return unsubscribe;
+  }, [auth, dispatch, navigate]);
 
   useEffect(() => {
     if (!data) {
       navigate("/signin");
-    } else if (!data.emailVerified) {
+    } else if (!data.value?.emailVerified) {
+      console.log("fgfg" + JSON.stringify(data));
       setVerify(false);
     } else {
       setVerify(true);
+      console.log("ok");
     }
-  }, []);
+  }, [data, navigate]);
 
   return (
     <>
-      {verify ? 
-        <section className=" flex py-9 w-full justify-around">
+      {verify ? (
+        <section className="flex py-9 w-full justify-around">
           <div>
             <GroupList />
             <FriendRequest />
@@ -58,11 +62,11 @@ const Home = () => {
             <BlockedUsers />
           </div>
         </section>
-       : 
-        <div className="w-full h-screen absulate top-0 left-0 bg-red-200/50 flex justify-center items-center">
-          <h1 className="text-3xl text-primary"> Please verify Your Email</h1>
+      ) : (
+        <div className="w-full h-screen absolute top-0 left-0 bg-red-200/50 flex justify-center items-center">
+          <h1 className="text-3xl text-primary">Please verify Your Email</h1>
         </div>
-      }
+      )}
     </>
   );
 };

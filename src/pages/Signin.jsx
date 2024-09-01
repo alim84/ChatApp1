@@ -40,29 +40,30 @@ const Signin = () => {
     setPassword(e.target.value);
     setPassworderror("");
   };
-  let handleSignup = () => {
-    if (!email || !name || !password)
+
+  let handleSignin = () => {
+    if (!email || !password) {
       if (!email) {
         setEmailerror("Email is required");
       }
-
-    if (!password) {
-      setPassworderror("Password is required");
-    }
-    if (email && password) {
+      if (!password) {
+        setPassworderror("Password is required");
+      }
+    } else {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           dispatch(loginuserinfo(user));
           localStorage.setItem("user", JSON.stringify(user));
-
-          navigate("/");
+          navigate("/"); // Navigate to the homepage after successful login
         })
         .catch((error) => {
           const errorCode = error.code;
           console.log(errorCode);
-          if (error.code.include("auth/invalid-credential")) {
-            setEmailerror("Invalid-Credential");
+          if (errorCode.includes("auth/invalid-credential")) {
+            setEmailerror("Invalid credentials");
+          } else {
+            setEmailerror("Failed to sign in");
           }
         });
     }
@@ -78,11 +79,8 @@ const Signin = () => {
           date: `${new Date().getFullYear()}-${
             new Date().getMonth() + 1
           }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}`,
-        }).then;
-        setTimeout(() => {
-          setLoader(false);
-          navigate("/signin");
-        }, 1000);
+        });
+        navigate("/"); // Navigate to the homepage after successful Google login
       })
       .catch((error) => {
         console.log(error);
@@ -93,6 +91,7 @@ const Signin = () => {
     signInWithPopup(auth, fprovider)
       .then((result) => {
         console.log(result);
+        navigate("/"); // Navigate to the homepage after successful Facebook login
       })
       .catch((error) => {
         console.log(error);
@@ -101,36 +100,36 @@ const Signin = () => {
 
   return (
     <div className="w-full h-screen flex">
-      <div className="w-2/4 h-full flex justify-end items-center ">
+      <div className="w-2/4 h-full flex justify-end items-center">
         <div className="mr-[69px]">
           <h1 className="text-[34px] font-bold text-secondary">
             Login to your account
           </h1>
           <button
             onClick={handleGoogleLogin}
-            className="  my-5 rounded-lg border-2 border-gray-400 py-5 px-10 shadow shadow-gray-200 mr-8 "
+            className="my-5 rounded-lg border-2 border-gray-400 py-5 px-10 shadow shadow-gray-200 mr-8"
           >
-            <img className="inline-block mr-4" src={GoogleImage}></img> Login
-            with Google
+            <img className="inline-block mr-4" src={GoogleImage} alt="Google" />
+            Login with Google
           </button>
           <button
             onClick={handleFacebookLogin}
-            className="  my-5 rounded-lg border-2 border-gray-400 py-5 px-10 shadow shadow-gray-200 "
+            className="my-5 rounded-lg border-2 border-gray-400 py-5 px-10 shadow shadow-gray-200"
           >
-            <FaFacebook className="inline mr-5" /> Login with Google
+            <FaFacebook className="inline mr-5" /> Login with Facebook
           </button>
 
           <div className="w-[368px] h-[80px] mt-[61px] relative">
             <label
               className={`text-sm font-semibold ${
                 emailerror ? "text-red-500" : "text-secondary"
-              }  absolute top-[-13px] left-[50px] bg-white px-2`}
+              } absolute top-[-13px] left-[50px] bg-white px-2`}
             >
               Email Address :
             </label>
             <input
               onChange={handleEmail}
-              className="w-full h-full border-b border-secondary/50  pl-[50px]"
+              className="w-full h-full border-b border-secondary/50 pl-[50px]"
               type="email"
               value={email}
               placeholder="Enter Your Email"
@@ -143,14 +142,14 @@ const Signin = () => {
           <div className="w-[368px] h-[80px] mt-[61px] relative">
             <label
               className={`text-sm font-semibold ${
-                emailerror ? "text-red-500" : "text-secondary"
-              }  absolute top-[-13px] left-[50px] bg-white px-2`}
+                passworderror ? "text-red-500" : "text-secondary"
+              } absolute top-[-13px] left-[50px] bg-white px-2`}
             >
               Password :
             </label>
             <input
               onChange={handlePassword}
-              className="w-full h-full border-b border-secondary/50  pl-[50px]"
+              className="w-full h-full border-b border-secondary/50 pl-[50px]"
               type={passwordshow ? "text" : "password"}
               value={password}
               placeholder="Enter Your Password"
@@ -173,26 +172,25 @@ const Signin = () => {
             )}
           </div>
           <button
-            onClick={handleSignup}
+            onClick={handleSignin}
             className="bg-primary w-[368px] py-5 text-xl font-semibold text-white rounded-[86px] mt-[51px]"
           >
             Login to Continue
           </button>
           <p className="text-sm text-secondary text-center w-[362px] mt-[35px]">
-            Already have an accountr ?{" "}
+            Don't have an account?{" "}
             <Link to="/Signup" className="text-[#EA6C00] font-bold">
               Sign up
-            </Link>{" "}
+            </Link>
           </p>
-          <p>{emailerror}</p>
         </div>
       </div>
 
-      <div className="w-2/4 h-full ">
+      <div className="w-2/4 h-full">
         <img
           className="ml-auto w-full h-full object-cover"
           src={loginImage}
-          alt={loginImage}
+          alt="Login Background"
         />
       </div>
     </div>
