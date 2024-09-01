@@ -50,25 +50,21 @@ const Signin = () => {
       setPassworderror("Password is required");
     }
     if (email && password) {
- 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          dispatch(loginuserinfo(user))
-          localStorage.setItem("user",JSON.stringify(user))
+          dispatch(loginuserinfo(user));
+          localStorage.setItem("user", JSON.stringify(user));
 
-          navigate('/')
-    
-        
+          navigate("/");
         })
         .catch((error) => {
           const errorCode = error.code;
-          console.log(errorCode)
+          console.log(errorCode);
           if (error.code.include("auth/invalid-credential")) {
             setEmailerror("Invalid-Credential");
           }
-      
-      }); 
+        });
     }
   };
 
@@ -84,7 +80,7 @@ const Signin = () => {
           }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}`,
         }).then;
         setTimeout(() => {
-         setLoader(false);
+          setLoader(false);
           navigate("/signin");
         }, 1000);
       })
