@@ -5,4 +5,8 @@ export const store = configureStore({
   reducer: {
     userInfo: userReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

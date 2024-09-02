@@ -5,18 +5,27 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaBell } from "react-icons/fa";
 import { VscSignOut } from "react-icons/vsc";
+import { useSelector } from "react-redux";
+import { FaUpload } from "react-icons/fa";
+import { useState } from "react";
 
 const Sidebar = () => {
+  let data = useSelector((state) => state.userInfo.value);
+
   return (
     <div className="h-screen  py-9 px-8 rounded-4xl">
       <div className="w-[186px] h-full  rounded-3xl bg-primary">
-        <div className="text-center">
-          <img
-            className="w-[100px] h-[100px] rounded-full  mt-9 inline-block"
-            src={profileImg}
-            alt=""
-          />
+        <div className="text-center pt-9">
+          <div className="w-[100px] h-[100px] group relative overflow-hidden mx-auto rounded-full ">
+            <img className="w-full h-full" src={data.photoURL} alt="" />
+            <div className="w-full h-full cursor-pointer bg-red-500 group-hover: opacity-100 absulate opacity-0 top-0 left-0 flex justify-center items-center">
+              <FaUpload className="text-white text-2xl" />
+            </div>
+          </div>
         </div>
+        <h1 className="text-white text-xl text-center font-bold mt-3">
+          {data.displayName}
+        </h1>
         <div className="w-full h-[89px] relative mt-[78px]">
           <div
             className="w-[168px] h-[89px] bg-white ml-auto relative rounded-s-[20px] after:w-[10px]

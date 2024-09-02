@@ -26,7 +26,7 @@ const Home = () => {
         dispatch(loginuserinfo(user));
         localStorage.setItem("user", JSON.stringify(user));
       } else {
-        navigate("/");
+        navigate("/signin");
         setVerify(false);
       }
     });
