@@ -30,29 +30,31 @@ const UserList = () => {
         <BsThreeDotsVertical />
       </div>
 
-      <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={item.image}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                {item.name}
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                {moment(item.date, "YYYYMMDDh:mm:ss").fromNow()}
-              </p>
+      {userList.map((item) => {
+        <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
+          <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
+            <div className="flex items-center gap-4">
+              <img
+                className="w-[70px] h-[70px] rounded-full"
+                src={item.image}
+                alt=""
+              />
+              <div>
+                <h3 className="text-[18px] font-semibold text-black">
+                  {item.name}
+                </h3>
+                <p className="text-[14px] font-semibold text-gray-500">
+                  {moment(item.date, "YYYYMMDD").fromNow()}
+                </p>
+              </div>
             </div>
+            <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
+              {" "}
+              +
+            </button>
           </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            +
-          </button>
-        </div>
-      </div>
+        </div>;
+      })}
     </div>
   );
 };

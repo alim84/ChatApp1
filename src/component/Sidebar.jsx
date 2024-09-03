@@ -1,5 +1,4 @@
 import profileImg from "../assets/alim.png";
-
 import { FaHome } from "react-icons/fa";
 import { AiOutlineMessage } from "react-icons/ai";
 import { IoSettingsSharp } from "react-icons/io5";
@@ -17,8 +16,8 @@ const Sidebar = () => {
       <div className="w-[186px] h-full  rounded-3xl bg-primary">
         <div className="text-center pt-9">
           <div className="w-[100px] h-[100px] group relative overflow-hidden mx-auto rounded-full ">
-            <img className="w-full h-full" src={data.photoURL} alt="" />
-            <div className="w-full h-full cursor-pointer bg-red-500 group-hover: opacity-100 absulate opacity-0 top-0 left-0 flex justify-center items-center">
+            <img className="w-full " src={data.photoURL} alt="" />
+            <div className="w-full h-full cursor-pointer bg-red-500 group-hover:opacity-50 flex absolute justify-center items-center">
               <FaUpload className="text-white text-2xl" />
             </div>
           </div>
