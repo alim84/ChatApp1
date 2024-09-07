@@ -29,9 +29,10 @@ const UserList = () => {
         <h2 className="text-[20px] font-semibold text-black">User List </h2>
         <BsThreeDotsVertical />
       </div>
-
+      <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
+      </div>;
       {userList.map((item) => {
-        <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
+        
           <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
             <div className="flex items-center gap-4">
               <img
@@ -53,7 +54,7 @@ const UserList = () => {
               +
             </button>
           </div>
-        </div>;
+       
       })}
     </div>
   );
