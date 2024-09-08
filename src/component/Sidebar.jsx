@@ -6,26 +6,28 @@ import { FaBell } from "react-icons/fa";
 import { VscSignOut } from "react-icons/vsc";
 import { FaUpload } from "react-icons/fa";
 import { createRef, useState } from "react";
-import { getStorage, ref, getDownloadURL, uploadString  } from "firebase/storage";
-import Cropper, { ReactCropperElement } from "react-cropper";
+import {
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadString,
+} from "firebase/storage";
+import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { getAuth, updateProfile } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { loginuserinfo } from "../Slices/UserSlice";
 
-
 const Sidebar = () => {
   const auth = getAuth();
+  let data = useSelector((state) => state.userInfo.value);
   let dispatch = useDispatch();
   const storage = getStorage();
-  let data = useSelector((state) => state.userInfo.value);
   let [imageModal, setImageModal] = useState(false);
-  
 
-  const [image, setImage] = useState();
-  const [cropData, setCropData] = useState();
+  const [image, setImage] = useState(null);
+  const [cropData, setCropData] = useState("");
   const cropperRef = createRef();
-
 
   let handlaeImageFile = (e) => {
     let files;
@@ -40,28 +42,29 @@ const Sidebar = () => {
     };
     reader.readAsDataURL(files[0]);
   };
-  };
 
   let handleSubmit = () => {
-    const storageRef = ref(storage, 'some-child');
+    const storageRef = ref(storage, "some-child");
     if (typeof cropperRef.current?.cropper !== "undefined") {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
-      const message4 = cropperRef.current?.cropper.getCroppedCanvas().toDataURL()
-uploadString(storageRef, message4, 'data_url').then((snapshot) => {
-  getDownloadURL(storageRef).then((downloadURL) => {
-    updateProfile(auth.currentUser, {
-    
-      photoURL: downloadURL,
-    }).then(()=>{
-      dispatch(loginuserinfo(auth.currentUser))
-    }).then(()=>{
-      setImageModal(false)
-      setCropData('')
-      setImage('')
-    })
-  });
-});
-
+      const message4 = cropperRef.current?.cropper
+        .getCroppedCanvas()
+        .toDataURL();
+      uploadString(storageRef, message4, "data_url").then((snapshot) => {
+        getDownloadURL(storageRef).then((downloadURL) => {
+          updateProfile(auth.currentUser, {
+            photoURL: downloadURL,
+          })
+            .then(() => {
+              dispatch(loginuserinfo(auth.currentUser));
+            })
+            .then(() => {
+              setImageModal(false);
+              setCropData("");
+              setImage("");
+            });
+        });
+      });
     }
   };
 
@@ -71,7 +74,7 @@ uploadString(storageRef, message4, 'data_url').then((snapshot) => {
         <div className="text-center pt-9">
           <div
             onClick={() => setImageModal(true)}
-            className="w-[100px] h-[100px] group relative overflow-hidden mx-auto rounded-full z-0 "
+            className="w-[100px] h-[100px] group relative overflow-hidden mx-auto rounded-full"
           >
             <img className="w-full " src={data.photoURL} alt="" />
             <div className="w-full h-full cursor-pointer bg-black/20 group-hover:opacity-50 flex absolute justify-center items-center">
@@ -123,8 +126,6 @@ uploadString(storageRef, message4, 'data_url').then((snapshot) => {
           <VscSignOut className="text-[46px] text-white absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] " />
         </div>
       </div>
-   
-
       {imageModal && (
         <div className="w-full h-screen bg-black/70 absolute top-0 left-0 flex justify-center items-center">
           <div className="w-[500px] bg-white rounded-lg p-6">
@@ -136,27 +137,25 @@ uploadString(storageRef, message4, 'data_url').then((snapshot) => {
               className="text-xl font-semibold text-primary mt-2"
               type="file"
             ></input>
-{image &&
-
-<Cropper
-ref={cropperRef}
-style={{ height: 400, width: "100%" }}
-zoomTo={0.5}
-initialAspectRatio={1}
-preview=".img-preview"
-src={image}
-viewMode={1}
-minCropBoxHeight={10}
-minCropBoxWidth={10}
-background={false}
-responsive={true}
-autoCropArea={1}
-checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-guides={true}
-/>
-
-}
-          
+            {image && (
+              <Cropper
+                ref={cropperRef}
+                style={{ height: 400, width: "100%" }}
+                zoomTo={0.5}
+                initialAspectRatio={1}
+                preview=".img-preview"
+                src={image}
+                viewMode={1}
+                minCropBoxHeight={10}
+                minCropBoxWidth={10}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false}
+                guides={true}
+              />
+            )}
+            ;
             <button
               onClick={handleSubmit}
               className="bg-primary  py-2 px-4 text-md font-semibold text-white rounded-[86px] mt-[51px]"
@@ -172,11 +171,9 @@ guides={true}
           </div>
         </div>
       )}
-     
-</div>
-   
+      ;
+    </div>
   );
-
 };
 
 export default Sidebar;
