@@ -58,7 +58,7 @@ const Home = () => {
             <MyGroups />
           </div>
           <div>
-            <UserList />
+          <UserList />
             <BlockedUsers />
           </div>
         </section>

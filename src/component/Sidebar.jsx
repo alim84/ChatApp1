@@ -6,6 +6,7 @@ import { FaBell } from "react-icons/fa";
 import { VscSignOut } from "react-icons/vsc";
 import { FaUpload } from "react-icons/fa";
 import { createRef, useState } from "react";
+
 import {
   getStorage,
   ref,
@@ -17,9 +18,11 @@ import "cropperjs/dist/cropper.css";
 import { getAuth, updateProfile } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { loginuserinfo } from "../Slices/UserSlice";
+import { update, ref as imageref, getDatabase } from "firebase/database";
 
 const Sidebar = () => {
   const auth = getAuth();
+  const db = getDatabase();
   let data = useSelector((state) => state.userInfo.value);
   let dispatch = useDispatch();
   const storage = getStorage();
@@ -57,6 +60,9 @@ const Sidebar = () => {
           })
             .then(() => {
               dispatch(loginuserinfo(auth.currentUser));
+              update(imageref(db, "users/" + data.uid), {
+                image: downloadURL,
+              });
             })
             .then(() => {
               setImageModal(false);
@@ -76,14 +82,14 @@ const Sidebar = () => {
             onClick={() => setImageModal(true)}
             className="w-[100px] h-[100px] group relative overflow-hidden mx-auto rounded-full"
           >
-            <img className="w-full " src={data.photoURL} alt="" />
+            <img className="w-full " src={data && data.photoURL} alt="" />
             <div className="w-full h-full cursor-pointer bg-black/20 group-hover:opacity-50 flex absolute justify-center items-center">
-              <FaUpload className="text-white text-2xl z-10" />
+              <FaUpload className="text-white text-2xl " />
             </div>
           </div>
         </div>
         <h1 className="text-white text-xl text-center font-bold mt-3">
-          {data.displayName}
+          {data && data.displayName}
         </h1>
         <div className="w-full h-[89px] relative mt-[78px]">
           <div

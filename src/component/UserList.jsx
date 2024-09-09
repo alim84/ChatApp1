@@ -4,6 +4,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
 import moment from "moment/moment";
 import { useSelector } from "react-redux";
+import SigninImage from "../assets/login.jpg";
 
 const UserList = () => {
   let data = useSelector((state) => state.userInfo.value);
@@ -24,22 +25,23 @@ const UserList = () => {
   }, []);
 
   return (
+      <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
     <div className="w-[427px] shadow-2xl rounded-2xl px-5 ">
       <div className="flex justify-between items-center">
         <h2 className="text-[20px] font-semibold text-black">User List </h2>
         <BsThreeDotsVertical />
       </div>
-      <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
-      </div>;
-      {userList.map((item) => {
+      </div>
+     
+      {userList.map((item) => (
         
-          <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-            <div className="flex items-center gap-4">
+        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
+        <div className="flex items-center gap-4">
               <img
                 className="w-[70px] h-[70px] rounded-full"
-                src={item.image}
+                src={item ? item.image : SigninImage }
                 alt=""
-              />
+                />
               <div>
                 <h3 className="text-[18px] font-semibold text-black">
                   {item.name}
@@ -53,10 +55,10 @@ const UserList = () => {
               {" "}
               +
             </button>
-          </div>
-       
-      })}
-    </div>
+              </div>
+          
+        ) )}
+        </div>
   );
 };
 
