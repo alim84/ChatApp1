@@ -5,33 +5,35 @@ import { useEffect, useState } from "react";
 import moment from "moment/moment";
 import { useSelector } from "react-redux";
 import SigninImage from "../assets/login.jpg";
+import FriendList from './FriendList';
 
 const UserList = () => {
   let data = useSelector((state) => state.userInfo.value);
   const db = getDatabase();
   let [userList, setUserList] = useState([]);
   let [requestList, setrequestList] = useState([]);
+  let [friendList, setFriendList] = useState([]);
 
   useEffect(() => {
-    const userListRef = ref(db, "users/");
+    const userListRef = ref(db, "friendrequest/");
     onValue(userListRef, (snapshot) => {
       let array = [];
       snapshot.forEach((item) => {
-        if (data.uid != item.key) {
-          array.push({ ...item.val(), uid: item.key });
-        }
+       
+          array.push(item.val().senderid + item.val().receiverid);
+        
       });
-      setUserList(array);
+      setrequestList(array);
     });
   }, []);
   useEffect(() => {
-    const friendrequestRef = ref(db, "friendrequest/");
+    const friendrequestRef = ref(db, "friendlist/");
     onValue(friendrequestRef, (snapshot) => {
       let array = [];
       snapshot.forEach((item) => {
         array.push(item.val().senderid + item.val().receiverid);
       });
-      setrequestList(array);
+      setFriendList(array);
     });
   }, []);
 
@@ -76,7 +78,19 @@ const UserList = () => {
               </p>
             </div>
           </div>
-          {requestList.includes(data.uid + item.uid) ||
+
+          {friendList.includes(data.uid + item.uid) ||
+          friendList.includes(item.uid + data.uid)?
+          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
+          {" "}
+          F
+        </button>
+
+          :
+
+          
+
+          requestList.includes(data.uid + item.uid) ||
           requestList.includes(item.uid + data.uid) ? (
             <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
               {" "}

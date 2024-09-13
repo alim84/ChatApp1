@@ -18,7 +18,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   const data = useSelector((state) => state.userInfo);
-  console.log(`data : ${data}`);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -41,7 +40,6 @@ const Home = () => {
       setVerify(false);
     } else {
       setVerify(true);
-      console.log("ok");
     }
   }, [data, navigate]);
 
@@ -58,7 +56,7 @@ const Home = () => {
             <MyGroups />
           </div>
           <div>
-          <UserList />
+            <UserList />
             <BlockedUsers />
           </div>
         </section>
