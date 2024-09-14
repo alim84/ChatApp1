@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import moment from "moment/moment";
 import { useSelector } from "react-redux";
 import SigninImage from "../assets/login.jpg";
-import FriendList from './FriendList';
+import FriendList from "./FriendList";
 
 const UserList = () => {
   let data = useSelector((state) => state.userInfo.value);
@@ -15,17 +15,28 @@ const UserList = () => {
   let [friendList, setFriendList] = useState([]);
 
   useEffect(() => {
-    const userListRef = ref(db, "friendrequest/");
+    const userListRef = ref(db, "users/");
     onValue(userListRef, (snapshot) => {
       let array = [];
       snapshot.forEach((item) => {
-       
-          array.push(item.val().senderid + item.val().receiverid);
-        
+        if (data.uid != item.key) {
+          array.push({ ...item.val(), uid: item.key });
+        }
+      });
+      setUserList(array);
+    });
+  }, []);
+  useEffect(() => {
+    const friendrequestRef = ref(db, "friendrequest/");
+    onValue(friendrequestRef, (snapshot) => {
+      let array = [];
+      snapshot.forEach((item) => {
+        array.push(item.val().senderid + item.val().receiverid);
       });
       setrequestList(array);
     });
   }, []);
+
   useEffect(() => {
     const friendrequestRef = ref(db, "friendlist/");
     onValue(friendrequestRef, (snapshot) => {
@@ -80,18 +91,13 @@ const UserList = () => {
           </div>
 
           {friendList.includes(data.uid + item.uid) ||
-          friendList.includes(item.uid + data.uid)?
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-          {" "}
-          F
-        </button>
-
-          :
-
-          
-
-          requestList.includes(data.uid + item.uid) ||
-          requestList.includes(item.uid + data.uid) ? (
+          friendList.includes(item.uid + data.uid) ? (
+            <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
+              {" "}
+              F
+            </button>
+          ) : requestList.includes(data.uid + item.uid) ||
+            requestList.includes(item.uid + data.uid) ? (
             <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
               {" "}
               -
