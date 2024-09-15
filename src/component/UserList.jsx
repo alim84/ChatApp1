@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import moment from "moment/moment";
 import { useSelector } from "react-redux";
 import SigninImage from "../assets/login.jpg";
-import FriendList from "./FriendList";
+
 
 const UserList = () => {
   let data = useSelector((state) => state.userInfo.value);

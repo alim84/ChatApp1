@@ -63,7 +63,7 @@ const FriendRequest = () => {
               </div>
             </div>
             <button
-              onClick={handleAcceptFriend}
+              onClick={() => handleAcceptFriend(item)}
               className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
             >
               {" "}
