@@ -2,7 +2,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import profileImg from "../assets/alim.png";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref, push, remove, set } from "firebase/database";
 
 const FriendList = () => {
   let data = useSelector((state) => state.userInfo.value);
@@ -24,6 +24,28 @@ const FriendList = () => {
       setFriendList(array);
     });
   }, []);
+
+  let handleBlock=(item)=>{
+ if (data.uid==item.senderid){
+  set(push(ref(db, 'blocklist/' )), {
+    blockbyid:data.uid,
+    blockby:data.displayName,
+    blockeduserid:item.receiverid,
+    blockeduser:item.receivername,
+  }).then(() => {
+    remove(ref(db, "friendlist/" + item.key));
+  });
+ } else{
+  set(push(ref(db, 'blocklist/' )), {
+    blockbyid:data.uid,
+    blockby:data.displayName,
+    blockeduserid:item.senderid,
+    blockeduser:item.sendername
+  }).then(() => {
+    remove(ref(db, "friendlist/" + item.key));
+  });
+ }
+  }
 
   return (
     <div className="w-[427px] shadow-2xl rounded-2xl px-5 ">
@@ -56,7 +78,10 @@ const FriendList = () => {
                 </p>
               </div>
             </div>
-            <time>Friday 6PM</time>
+            <button onClick={()=>handleBlock(item)} className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
+            {" "}
+            Block
+          </button>
           </div>
         ))}
       </div>

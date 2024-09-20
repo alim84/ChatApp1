@@ -1,7 +1,31 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import profileImg from "../assets/alim.png";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import {
+  getDatabase,
+  onValue,
+  ref,
+  push,
+  remove,
+  set,
+} from "firebase/database";
 
 const BlockedUsers = () => {
+  let data = useSelector((state) => state.userInfo.value);
+  let [blocklist, setBlocklist] = useState([]);
+  const db = getDatabase();
+
+  useEffect(() => {
+    const blockRef = ref(db, "blocklist/");
+    onValue(blockRef, (snapshot) => {
+      let array = [];
+      snapshot.forEach((item) => {
+        array.push({ ...item.val(), key: item.key });
+      });
+      setBlocklist(array);
+    });
+  }, []);
   return (
     <div className="w-[427px] shadow-2xl rounded-2xl px-5 mt-[43px]">
       <div className="flex justify-between items-center">
