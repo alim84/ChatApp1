@@ -21,7 +21,17 @@ const BlockedUsers = () => {
     onValue(blockRef, (snapshot) => {
       let array = [];
       snapshot.forEach((item) => {
-        array.push({ ...item.val(), key: item.key });
+        if (data.uid == item.val().blockbyid) {
+          array.push({
+            blockeduser: item.val().blockeduser,
+            blockeduserid: item.val().blockeduserid,
+          });
+        } else if (data.uid == item.val().blockeduserid) {
+          array.push({
+            blockby: item.val().blockby,
+            blockbyid: item.val().blockbyid,
+          });
+        }
       });
       setBlocklist(array);
     });
@@ -33,153 +43,36 @@ const BlockedUsers = () => {
         <BsThreeDotsVertical />
       </div>
       <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={profileImg}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                Friens Reunion
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                Hi Guys, Wassup!
-              </p>
+        {blocklist.map((item) => (
+          <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
+            <div className="flex items-center gap-4">
+              <img
+                className="w-[70px] h-[70px] rounded-full"
+                src={profileImg}
+                alt=""
+              />
+              <div>
+                <h3 className="text-[18px] font-semibold text-black">
+                  {item.blockeduser}
+                </h3>
+
+                <h3 className="text-[18px] font-semibold text-black">
+                  {item.blockby}
+                </h3>
+
+                <p className="text-[14px] font-semibold text-gray-500">
+                  Hi Guys, Wassup!
+                </p>
+              </div>
             </div>
+            {data.uid !== item.blockeduserid && (
+              <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
+                {" "}
+                unblock
+              </button>
+            )}
           </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            unblock
-          </button>
-        </div>
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={profileImg}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                Friens Reunion
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                Hi Guys, Wassup!
-              </p>
-            </div>
-          </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            unblock
-          </button>
-        </div>
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={profileImg}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                Friens Reunion
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                Hi Guys, Wassup!
-              </p>
-            </div>
-          </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            unblock
-          </button>
-        </div>
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={profileImg}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                Friens Reunion
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                Hi Guys, Wassup!
-              </p>
-            </div>
-          </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            unblock
-          </button>
-        </div>
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={profileImg}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                Friens Reunion
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                Hi Guys, Wassup!
-              </p>
-            </div>
-          </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            unblock
-          </button>
-        </div>
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={profileImg}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                Friens Reunion
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                Hi Guys, Wassup!
-              </p>
-            </div>
-          </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            unblock
-          </button>
-        </div>
-        <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-          <div className="flex items-center gap-4">
-            <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={profileImg}
-              alt=""
-            />
-            <div>
-              <h3 className="text-[18px] font-semibold text-black">
-                Friens Reunion
-              </h3>
-              <p className="text-[14px] font-semibold text-gray-500">
-                Hi Guys, Wassup!
-              </p>
-            </div>
-          </div>
-          <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            unblock
-          </button>
-        </div>
+        ))}
       </div>
     </div>
   );

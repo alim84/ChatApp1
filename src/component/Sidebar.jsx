@@ -47,7 +47,7 @@ const Sidebar = () => {
   };
 
   let handleSubmit = () => {
-    const storageRef = ref(storage, "some-child");
+    const storageRef = ref(storage, "same");
     if (typeof cropperRef.current?.cropper !== "undefined") {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
       const message4 = cropperRef.current?.cropper
