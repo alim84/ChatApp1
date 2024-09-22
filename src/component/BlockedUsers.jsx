@@ -6,9 +6,7 @@ import {
   getDatabase,
   onValue,
   ref,
-  push,
-  remove,
-  set,
+
 } from "firebase/database";
 
 const BlockedUsers = () => {
@@ -65,12 +63,13 @@ const BlockedUsers = () => {
                 </p>
               </div>
             </div>
-            {data.uid !== item.blockeduserid && (
+            { item.blockeduser &&
               <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
                 {" "}
                 unblock
               </button>
-            )}
+           
+            }
           </div>
         ))}
       </div>
