@@ -2,12 +2,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import profileImg from "../assets/alim.png";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  getDatabase,
-  onValue,
-  ref,
-
-} from "firebase/database";
+import { getDatabase, onValue, ref } from "firebase/database";
 
 const BlockedUsers = () => {
   let data = useSelector((state) => state.userInfo.value);
@@ -34,6 +29,18 @@ const BlockedUsers = () => {
       setBlocklist(array);
     });
   }, []);
+
+  let handleUnblock = (item) => {
+    set(push(ref(db, "friendlist/")), {
+      blockbyid: data.uid,
+      blockby: data.displayName,
+      blockeduserid: item.receiverid,
+      blockeduser: item.receivername,
+    }).then(() => {
+      remove(ref(db, "blocklist/" + item.key));
+    });
+  };
+
   return (
     <div className="w-[427px] shadow-2xl rounded-2xl px-5 mt-[43px]">
       <div className="flex justify-between items-center">
@@ -44,11 +51,19 @@ const BlockedUsers = () => {
         {blocklist.map((item) => (
           <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
             <div className="flex items-center gap-4">
-              <img
-                className="w-[70px] h-[70px] rounded-full"
-                src={profileImg}
-                alt=""
-              />
+              {data.uid == item.blockby ? (
+                <img
+                  className="w-[70px] h-[70px] rounded-full"
+                  src={item.blockuserimage}
+                  alt=""
+                />
+              ) : (
+                <img
+                  className="w-[70px] h-[70px] rounded-full"
+                  src={item.blockbyimage}
+                  alt=""
+                />
+              )}
               <div>
                 <h3 className="text-[18px] font-semibold text-black">
                   {item.blockeduser}
@@ -63,13 +78,15 @@ const BlockedUsers = () => {
                 </p>
               </div>
             </div>
-            { item.blockeduser &&
-              <button className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
+            {item.blockeduser && (
+              <button
+                onClick={() => handleUnblock(item)}
+                className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
+              >
                 {" "}
                 unblock
               </button>
-           
-            }
+            )}
           </div>
         ))}
       </div>
