@@ -1,8 +1,15 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
-import profileImg from "../assets/alim.png";
+
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getDatabase, onValue, ref } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+} from "firebase/database";
 
 const BlockedUsers = () => {
   let data = useSelector((state) => state.userInfo.value);
@@ -30,15 +37,17 @@ const BlockedUsers = () => {
     });
   }, []);
 
-  let handleUnblock = (item) => {
-    set(push(ref(db, "friendlist/")), {
-      blockbyid: data.uid,
-      blockby: data.displayName,
-      blockeduserid: item.receiverid,
-      blockeduser: item.receivername,
-    }).then(() => {
-      remove(ref(db, "blocklist/" + item.key));
-    });
+  const handleUnBlock = (item) => {
+    console.log(item);
+    // console.log(click);
+    // set(push(ref(db, "friendlist/")), {
+    //   senderid: item.blockbyid,
+    //   sendername: item.blockby,
+    //   receiverid: item.blockeduserid,
+    //   receivername: item.blockeduser,
+    // }).then(() => {
+    //   remove(ref(db, "blocklist/" + item.key));
+    // });
   };
 
   return (
@@ -80,8 +89,8 @@ const BlockedUsers = () => {
             </div>
             {item.blockeduser && (
               <button
-                onClick={() => handleUnblock(item)}
-                className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
+                onClick={() => handleUnBlock(item)}
+                className="bg-primary px-3 py-1 text-white font-normal text-[18px] rounded-lg"
               >
                 {" "}
                 unblock
