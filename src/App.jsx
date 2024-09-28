@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Rootlayout from "./layout/Rootlayout";
 import Home from "./pages/Home";
-import About from "./pages/About";
+import Message from "./pages/Massage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<Signup />}></Route>
       <Route path="/" element={<Rootlayout />}>
         <Route index element={<Home />}></Route>
-        <Route path="/about" element={<About />}></Route>
+        <Route path="/message" element={<Message/>}></Route>
       </Route>
     </>
   )
