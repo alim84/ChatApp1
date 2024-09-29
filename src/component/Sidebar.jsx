@@ -23,7 +23,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   let location = useLocation();
-
   const auth = getAuth();
   const db = getDatabase();
   let data = useSelector((state) => state.userInfo.value);
@@ -97,21 +96,35 @@ const Sidebar = () => {
         <div className="w-full h-[89px] relative mt-[78px]">
           <Link to="/">
             <div
-              className="w-[168px] h-[89px] bg-white ml-auto relative rounded-s-[20px] after:w-[10px]
-           after:h-full after:absolute after:top-0 after:right-0 after:bg-primary 
-           after:shadow-2xl after:rounded-s-[25px]"
+              className={`${
+                location.pathname == "/" &&
+                "w-[168px] h-[89px] bg-white ml-auto relative rounded-s-[20px] after:w-[10px] after:h-full after:absolute after:top-0 after:right-0 after:bg-primary after:shadow-2xl after:rounded-s-[25px]"
+              }`}
             ></div>
-            <FaHome className="text-[46px] text-primary absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] " />
+            <FaHome
+              className={`${
+                location.pathname == "/"
+                  ? "text-[46px] text-primary absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] "
+                  : "text-[46px] text-white absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] "
+              }`}
+            />
           </Link>
         </div>
         <div className="w-full h-[89px] relative mt-[35px]">
           <Link to="/message">
             <div
-              className="hidden w-[168px] h-[89px] bg-white  ml-auto relative rounded-s-[20px] after:w-[10px]
-           after:h-full after:absolute after:top-0 after:right-0 after:bg-primary 
-           after:shadow-2xl after:rounded-s-[25px]"
+              className={`${
+                location.pathname == "/message" &&
+                "w-[168px] h-[89px] bg-white ml-auto relative rounded-s-[20px] after:w-[10px] after:h-full after:absolute after:top-0 after:right-0 after:bg-primary after:shadow-2xl after:rounded-s-[25px]"
+              }`}
             ></div>
-            <AiOutlineMessage className="text-[46px] text-white absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] " />
+            <AiOutlineMessage
+              className={`${
+                location.pathname == "/"
+                  ? "text-[46px] text-white absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] "
+                  : "text-[46px] text-primary absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] "
+              }`}
+            />
           </Link>
         </div>
         <div className="w-full h-[89px] relative mt-[35px]">
