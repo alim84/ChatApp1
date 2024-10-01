@@ -53,7 +53,13 @@ const FriendList = () => {
         <h2 className="text-[20px] font-semibold text-black">Friend List</h2>
         <BsThreeDotsVertical />
       </div>
-      <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
+      <input
+       
+        className="w-full h-[30px] rounded-md border-1 border-green-500 outline-orange-500 px-5 bg-gray-200 "
+        placeholder="Search..........."
+        type="text"
+      ></input>
+      <div className="w-full rounded-2xl  overflow-scroll">
         {friendlist.map((item) => (
           <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
             <div className="flex items-center gap-4">
