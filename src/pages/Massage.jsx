@@ -12,8 +12,8 @@ import { MdEmojiEmotions } from "react-icons/md";
 const Massage = () => {
   return (
     <>
-      <div className="grid grid-cols-2 w-full justify-between h-[1200px] mt-[50px]">
-        <div className="w-[800px]">
+      <div className="grid grid-cols-2 w-full justify-between h-[900px] mt-[50px] ">
+        <div className="w-[800px] bg-blue-100 rounded-md">
           <div className="flex justify-between item-center">
             <div className="flex gap-3 items-center">
               <div className="w-[50px] h-[50px] bg-green-500 rounded-full ">
@@ -23,13 +23,13 @@ const Massage = () => {
                 ></img>
               </div>
 
-              <div className="">
-                <h2 className="text-[14]">Alim</h2>
+              <div className=" text-blue-900 font-bold ">
+                <h2 className="text-[14px]">Alim</h2>
                 <p className="text-[8px]">Online</p>
               </div>
             </div>
 
-            <BsThreeDotsVertical />
+           
           </div>
           <div className="w-full h-[800px] bg-blue-50 rounded-md relative ">
             <div className="w-[300px] bg-blue-900 text-white px-2 rounded-lg py-3  absolute translate-x-0 translate-y-[50px] ">

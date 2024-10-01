@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "../Slices/UserSlice";
+
+import ChatSlice from "../Slices/ChatSlice";
+import UserSlice from "../Slices/UserSlice";
 
 export const store = configureStore({
   reducer: {
-    userInfo: userReducer,
+    userInfo: UserSlice,
+    chatuserInfo: ChatSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

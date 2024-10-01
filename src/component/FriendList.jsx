@@ -1,6 +1,6 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import profileImg from "../assets/alim.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   getDatabase,
@@ -11,8 +11,10 @@ import {
   set,
 } from "firebase/database";
 import { useLocation } from "react-router-dom";
+import { chatingInfo } from "../Slices/ChatSlice";
 
 const FriendList = () => {
+  let dispatch = useDispatch();
   let location = useLocation();
   let data = useSelector((state) => state.userInfo.value);
   let [friendlist, setFriendList] = useState([]);
@@ -56,7 +58,11 @@ const FriendList = () => {
     }
   };
   let handleChat = (item) => {
-    console.log(item);
+    if (data.uid == item.senderid) {
+      dispatch(chatingInfo({ name: item.receivername, id: item.receiverid }));
+    } else {
+      dispatch(chatingInfo({ name: item.sendername, id: item.senderid }));
+    }
   };
   return (
     <div className="w-[427px] shadow-2xl rounded-2xl px-5 ">
