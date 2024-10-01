@@ -2,9 +2,18 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import profileImg from "../assets/alim.png";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getDatabase, onValue, ref, push, remove, set } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  ref,
+  push,
+  remove,
+  set,
+} from "firebase/database";
+import { useLocation } from "react-router-dom";
 
 const FriendList = () => {
+  let location = useLocation();
   let data = useSelector((state) => state.userInfo.value);
   let [friendlist, setFriendList] = useState([]);
   const db = getDatabase();
@@ -25,28 +34,30 @@ const FriendList = () => {
     });
   }, []);
 
-  let handleBlock=(item)=>{
- if (data.uid==item.senderid){
-  set(push(ref(db, 'blocklist/' )), {
-    blockbyid:data.uid,
-    blockby:data.displayName,
-    blockeduserid:item.receiverid,
-    blockeduser:item.receivername,
-  }).then(() => {
-    remove(ref(db, "friendlist/" + item.key));
-  });
- } else{
-  set(push(ref(db, 'blocklist/' )), {
-    blockbyid:data.uid,
-    blockby:data.displayName,
-    blockeduserid:item.senderid,
-    blockeduser:item.sendername
-  }).then(() => {
-    remove(ref(db, "friendlist/" + item.key));
-  });
- }
-  }
-
+  let handleBlock = (item) => {
+    if (data.uid == item.senderid) {
+      set(push(ref(db, "blocklist/")), {
+        blockbyid: data.uid,
+        blockby: data.displayName,
+        blockeduserid: item.receiverid,
+        blockeduser: item.receivername,
+      }).then(() => {
+        remove(ref(db, "friendlist/" + item.key));
+      });
+    } else {
+      set(push(ref(db, "blocklist/")), {
+        blockbyid: data.uid,
+        blockby: data.displayName,
+        blockeduserid: item.senderid,
+        blockeduser: item.sendername,
+      }).then(() => {
+        remove(ref(db, "friendlist/" + item.key));
+      });
+    }
+  };
+  let handleChat = (item) => {
+    console.log(item);
+  };
   return (
     <div className="w-[427px] shadow-2xl rounded-2xl px-5 ">
       <div className="flex justify-between items-center">
@@ -54,7 +65,6 @@ const FriendList = () => {
         <BsThreeDotsVertical />
       </div>
       <input
-       
         className="w-full h-[30px] rounded-md border-1 border-green-500 outline-orange-500 px-5 bg-gray-200 "
         placeholder="Search..........."
         type="text"
@@ -84,10 +94,23 @@ const FriendList = () => {
                 </p>
               </div>
             </div>
-            <button onClick={()=>handleBlock(item)} className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg">
-            {" "}
-            Block
-          </button>
+            {location.pathname == "/message" ? (
+              <button
+                onClick={() => handleChat(item)}
+                className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
+              >
+                {" "}
+                msg
+              </button>
+            ) : (
+              <button
+                onClick={() => handleBlock(item)}
+                className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
+              >
+                {" "}
+                Block
+              </button>
+            )}
           </div>
         ))}
       </div>

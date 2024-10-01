@@ -7,12 +7,13 @@ import { FaCamera } from "react-icons/fa";
 import { TbPhotoFilled } from "react-icons/tb";
 import { FaMicrophone } from "react-icons/fa6";
 import { GrLike } from "react-icons/gr";
+import { MdEmojiEmotions } from "react-icons/md";
 
 const Massage = () => {
   return (
     <>
-      <div className="grid grid-cols-2 w-full h-[1200px] mt-[50px]">
-        <div className="w-3/4">
+      <div className="grid grid-cols-2 w-full justify-between h-[1200px] mt-[50px]">
+        <div className="w-[800px]">
           <div className="flex justify-between item-center">
             <div className="flex gap-3 items-center">
               <div className="w-[50px] h-[50px] bg-green-500 rounded-full ">
@@ -58,6 +59,7 @@ const Massage = () => {
                 placeholder="Message type............"
                 type="text"
               ></input>
+          <button className="absolute translate-x-[-40px] translate-y-[10px]">   <MdEmojiEmotions className=" text-[25px] text-yellow-600 "/></button>
             </div>
             <button className=" bg-blue-100 py-3  ">
               {" "}
@@ -68,8 +70,8 @@ const Massage = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/4 h-full ">
-          <FriendList className="h-full" />
+        <div className="w-[300px] h-full ml-[350px]">
+          <FriendList />
         </div>
       </div>
     </>
