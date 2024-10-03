@@ -10,15 +10,18 @@ import { GrLike } from "react-icons/gr";
 import { MdEmojiEmotions } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { push, ref, set, getDatabase, onValue } from "firebase/database";
+import EmojiPicker from "emoji-picker-react";
 
 const Massage = () => {
   const db = getDatabase();
   let chatdata = useSelector((state) => state.chatuserInfo.value);
   let data = useSelector((state) => state.userInfo.value);
   let [msgtext, setmsgtext] = useState("");
+  let [emoji, setEmoji] = useState("");
   let [msgList, setmsgList] = useState([]);
+
   let handlemsgInpur = (e) => {
-    setmsgtext(e.target.value);
+    setmsgtext(e.target.value + emoji);
   };
 
   let handlemsgSubmit = () => {
@@ -31,6 +34,8 @@ const Massage = () => {
       date: `${new Date().getFullYear()}-${
         new Date().getMonth() + 1
       }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}`,
+    }).then(() => {
+      setmsgtext("");
     });
   };
 
@@ -40,10 +45,10 @@ const Massage = () => {
       let array = [];
       snapshot.forEach((item) => {
         if (
-          data.uid == item.val().senderid ||
-          (data.uid == item.val().receiverid &&
-            chatdata.id == item.val().senderid) ||
-          chatdata.id == item.val().receiverid
+          (data.uid == item.val().senderid &&
+            chatdata.id == item.val().receiverid) ||
+          (chatdata.id == item.val().senderid &&
+            data.uid == item.val().receiverid)
         ) {
           array.push({ ...item.val(), key: item.key });
         }
@@ -51,6 +56,10 @@ const Massage = () => {
       setmsgList(array);
     });
   }, [chatdata && chatdata.id]);
+
+  let handleEmoji = (e) => {
+    setEmoji(msgtext + e.emoji);
+  };
 
   return (
     <>
@@ -99,13 +108,15 @@ const Massage = () => {
                   <FaMicrophone className="text-blue-400 w-[25px] h-[25px]" />
                 </button>
               </div>
-              <div className="w-full bg-blue-100 ">
+              <div className="w-full bg-blue-100 relative ">
                 <input
+                  value={msgtext}
                   onChange={handlemsgInpur}
                   className="w-full py-3 outline-none  px-3 rounded-full "
                   placeholder="Message type............"
                   type="text"
                 ></input>
+
                 <button className="absolute translate-x-[-40px] translate-y-[10px]">
                   {" "}
                   <MdEmojiEmotions className=" text-[25px] text-yellow-600 " />
@@ -118,6 +129,9 @@ const Massage = () => {
               <div className="gap-2 bg-blue-100 py-3 p-[20px]  ">
                 <GrLike className="text-blue-400 bg- w-[25px] h-[25px] " />
               </div>
+            </div>
+            <div className="absolute translate-x-[650px] w-full h-[50px]">
+              <EmojiPicker onEmojiClick={handleEmoji} />
             </div>
           </div>
         )}
