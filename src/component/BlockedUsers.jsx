@@ -38,16 +38,15 @@ const BlockedUsers = () => {
   }, []);
 
   const handleUnBlock = (item) => {
-    console.log(item);
-    // console.log(click);
-    // set(push(ref(db, "friendlist/")), {
-    //   senderid: item.blockbyid,
-    //   sendername: item.blockby,
-    //   receiverid: item.blockeduserid,
-    //   receivername: item.blockeduser,
-    // }).then(() => {
-    //   remove(ref(db, "blocklist/" + item.key));
-    // });
+        
+    set(push(ref(db, "friendlist/")), {
+      senderid: item.blockbyid,
+      sendername: item.blockby,
+      receiverid: item.blockeduserid,
+      receivername: item.blockeduser,
+    }).then(() => {
+      remove(ref(db, "blocklist/" + item.key));
+    });
   };
 
   return (

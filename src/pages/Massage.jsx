@@ -17,11 +17,12 @@ const Massage = () => {
   let chatdata = useSelector((state) => state.chatuserInfo.value);
   let data = useSelector((state) => state.userInfo.value);
   let [msgtext, setmsgtext] = useState("");
-  let [emoji, setEmoji] = useState("");
   let [msgList, setmsgList] = useState([]);
+  let [emojishow, Setemojishow] = useState(false);
+  let [imageModal, setImageModal] = useState(false);
 
   let handlemsgInpur = (e) => {
-    setmsgtext(e.target.value + emoji);
+    setmsgtext(e.target.value);
   };
 
   let handlemsgSubmit = () => {
@@ -58,9 +59,8 @@ const Massage = () => {
   }, [chatdata && chatdata.id]);
 
   let handleEmoji = (e) => {
-    setEmoji(msgtext + e.emoji);
+    setmsgtext((prev) => prev + e.emoji);
   };
-
   return (
     <>
       <div className="grid grid-cols-2 w-full justify-between h-[900px] mt-[50px] ">
@@ -98,7 +98,10 @@ const Massage = () => {
             <div className="flex items-center pb-[10px]  ">
               <div className="flex gap-2 bg-blue-100 py-3 px-2">
                 <button>
-                  <FaCamera className="text-blue-400 w-[25px] h-[25px] gap-2" />
+                  <FaCamera
+                    onClick={() => setImageModal(!imageModal)}
+                    className="text-blue-400 w-[25px] h-[25px] gap-2"
+                  />
                 </button>
                 <button>
                   {" "}
@@ -119,7 +122,10 @@ const Massage = () => {
 
                 <button className="absolute translate-x-[-40px] translate-y-[10px]">
                   {" "}
-                  <MdEmojiEmotions className=" text-[25px] text-yellow-600 " />
+                  <MdEmojiEmotions
+                    onClick={() => Setemojishow(!emojishow)}
+                    className=" text-[25px] text-yellow-600 "
+                  />
                 </button>
               </div>
               <button onClick={handlemsgSubmit} className=" bg-blue-100 py-3  ">
@@ -130,14 +136,58 @@ const Massage = () => {
                 <GrLike className="text-blue-400 bg- w-[25px] h-[25px] " />
               </div>
             </div>
-            <div className="absolute translate-x-[650px] w-full h-[50px]">
-              <EmojiPicker onEmojiClick={handleEmoji} />
-            </div>
+            {emojishow && (
+              <div className="absolute translate-x-[650px] w-full h-[50px]">
+                <EmojiPicker onEmojiClick={handleEmoji} />
+              </div>
+            )}
           </div>
         )}
         <div className="w-[300px] h-full ml-[350px]">
           <FriendList />
         </div>
+        {imageModal && (
+          <div className="w-full h-screen bg-black/70 absolute top-0 left-0 flex justify-center items-center">
+            <div className="w-[500px] bg-white rounded-lg p-6">
+              <h1 className="text-2xl font-semibold text-primary">
+                Upload your Profile Photo
+              </h1>
+              <input
+                className="text-xl font-semibold text-primary mt-2"
+                type="file"
+              ></input>
+              {/* {image && (
+              <Cropper
+                ref={cropperRef}
+                style={{ height: 400, width: "100%" }}
+                zoomTo={0.5}
+                initialAspectRatio={1}
+                preview=".img-preview"
+                src={image}
+                viewMode={1}
+                minCropBoxHeight={10}
+                minCropBoxWidth={10}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false}
+                guides={true}
+              />
+            )} */}
+              ;
+              <button className="bg-primary  py-2 px-4 text-md font-semibold text-white rounded-[86px] mt-[51px]">
+                Upload
+              </button>
+              <button
+                onClick={() => setImageModal(false)}
+                className="bg-red-500 ml-3 py-2 px-4 text-md font-semibold text-white rounded-[86px] mt-[51px]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+        ;
       </div>
     </>
   );
