@@ -11,15 +11,23 @@ import { MdEmojiEmotions } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { push, ref, set, getDatabase, onValue } from "firebase/database";
 import EmojiPicker from "emoji-picker-react";
+import {
+  getDownloadURL,
+  getStorage,
+  ref as sref,
+  uploadBytes,
+} from "firebase/storage";
 
 const Massage = () => {
   const db = getDatabase();
+  const storage = getStorage();
   let chatdata = useSelector((state) => state.chatuserInfo.value);
   let data = useSelector((state) => state.userInfo.value);
   let [msgtext, setmsgtext] = useState("");
   let [msgList, setmsgList] = useState([]);
   let [emojishow, Setemojishow] = useState(false);
   let [imageModal, setImageModal] = useState(false);
+  let [imagefile, setImagefile] = useState("");
 
   let handlemsgInpur = (e) => {
     setmsgtext(e.target.value);
@@ -61,6 +69,26 @@ const Massage = () => {
   let handleEmoji = (e) => {
     setmsgtext((prev) => prev + e.emoji);
   };
+  let handleSubmit = () => {
+    const storageRef = sref(storage, "some-child");
+    uploadBytes(storageRef, imagefile).then((snapshot) => {
+      getDownloadURL(storageRef).then((downloadURL) => {
+        set(push(ref(db, "message/")), {
+          senderid: data.uid,
+          sender: data.displayName,
+          receiver: chatdata.name,
+          receiverid: chatdata.id,
+          image: downloadURL,
+          date: `${new Date().getFullYear()}-${
+            new Date().getMonth() + 1
+          }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}`,
+        }).then(() => {
+          setImageModal(false);
+        });
+      });
+    });
+  };
+
   return (
     <>
       <div className="grid grid-cols-2 w-full justify-between h-[900px] mt-[50px] ">
@@ -86,6 +114,7 @@ const Massage = () => {
                 data.uid == item.senderid ? (
                   <div className="w-[300px] bg-purple-900 text-white px-2 rounded-lg py-3  absolute right-0 translate-y-[200px]">
                     <h4 className=""> {item.msg}</h4>
+                    <img src={item.image}></img>
                   </div>
                 ) : (
                   <div className="w-[300px] bg-blue-900 text-white px-2 rounded-lg py-3  absolute translate-x-0 translate-y-[50px] ">
@@ -153,6 +182,7 @@ const Massage = () => {
                 Upload your Profile Photo
               </h1>
               <input
+                onChange={(e) => setImagefile(e.target.files[0])}
                 className="text-xl font-semibold text-primary mt-2"
                 type="file"
               ></input>
@@ -175,7 +205,10 @@ const Massage = () => {
               />
             )} */}
               ;
-              <button className="bg-primary  py-2 px-4 text-md font-semibold text-white rounded-[86px] mt-[51px]">
+              <button
+                onClick={handleSubmit}
+                className="bg-primary  py-2 px-4 text-md font-semibold text-white rounded-[86px] mt-[51px]"
+              >
                 Upload
               </button>
               <button
