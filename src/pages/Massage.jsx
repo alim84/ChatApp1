@@ -113,12 +113,19 @@ const Massage = () => {
               {msgList.map((item) =>
                 data.uid == item.senderid ? (
                   <div className="w-[300px] bg-purple-900 text-white px-2 rounded-lg py-3  absolute right-0 translate-y-[200px]">
-                    <h4 className=""> {item.msg}</h4>
-                    <img src={item.image}></img>
+                    {item.msg ? (
+                      <h4 className=""> {item.msg}</h4>
+                    ) : (
+                      <img src={item.image}></img>
+                    )}
                   </div>
                 ) : (
                   <div className="w-[300px] bg-blue-900 text-white px-2 rounded-lg py-3  absolute translate-x-0 translate-y-[50px] ">
-                    <h3 className=""> {item.msg}</h3>
+                    {item.msg ? (
+                      <h4 className=""> {item.msg}</h4>
+                    ) : (
+                      <img src={item.image}></img>
+                    )}
                   </div>
                 )
               )}
