@@ -17,6 +17,9 @@ import {
   ref as sref,
   uploadBytes,
 } from "firebase/storage";
+import ScrollToBottom from "react-scroll-to-bottom";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
 const Massage = () => {
   const db = getDatabase();
@@ -109,27 +112,35 @@ const Massage = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full h-[800px] bg-blue-50 rounded-md relative ">
+            <ScrollToBottom className="w-full h-[600px] bg-blue-50 rounded-md relative   ">
               {msgList.map((item) =>
                 data.uid == item.senderid ? (
-                  <div className="w-[300px] bg-purple-900 text-white px-2 rounded-lg py-3  absolute right-0 translate-y-[200px]">
+                  <div className="flex items-start w-[300px] bg-purple-900 text-white px-2 rounded-lg py-3 flex-row mt-4  mb-2  ]">
                     {item.msg ? (
                       <h4 className=""> {item.msg}</h4>
                     ) : (
-                      <img src={item.image}></img>
+                      <PhotoProvider>
+                        <PhotoView src={item.image}>
+                          <img src={item.image} alt="" />
+                        </PhotoView>
+                      </PhotoProvider>
                     )}
                   </div>
                 ) : (
-                  <div className="w-[300px] bg-blue-900 text-white px-2 rounded-lg py-3  absolute translate-x-0 translate-y-[50px] ">
+                  <div className="flex  w-[300px] bg-blue-900 text-white px-2 rounded-lg py-3 flex-row-reverse ml-[450px] mt-4  mb-2 ">
                     {item.msg ? (
                       <h4 className=""> {item.msg}</h4>
                     ) : (
-                      <img src={item.image}></img>
+                      <PhotoProvider>
+                        <PhotoView src={item.image}>
+                          <img src={item.image} alt="" />
+                        </PhotoView>
+                      </PhotoProvider>
                     )}
                   </div>
                 )
               )}
-            </div>
+            </ScrollToBottom>
 
             <div className="flex items-center pb-[10px]  ">
               <div className="flex gap-2 bg-blue-100 py-3 px-2">
