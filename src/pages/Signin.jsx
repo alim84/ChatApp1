@@ -1,5 +1,5 @@
 import { useState } from "react";
-import loginImage from "../assets/login.jpg";
+import loginImage from "../assets/Login.webp";
 import GoogleImage from "../assets/Gmail.png";
 import FacebookImage from "../assets/Facebook.png";
 import { Link } from "react-router-dom";
@@ -99,7 +99,7 @@ const Signin = () => {
   };
 
   return (
-    <div className="w-full h-screen flex">
+    <div className="w-full h-screen flex bg-slate-200">
       <div className="w-2/4 h-full flex justify-end items-center">
         <div className="mr-[69px]">
           <h1 className="text-[34px] font-bold text-secondary">
@@ -123,13 +123,13 @@ const Signin = () => {
             <label
               className={`text-sm font-semibold ${
                 emailerror ? "text-red-500" : "text-secondary"
-              } absolute top-[-13px] left-[50px] bg-white px-2`}
+              } absolute top-[-13px] left-[50px]  px-2 bg-slate-200 rounded-b-full`}
             >
               Email Address :
             </label>
             <input
               onChange={handleEmail}
-              className="w-full h-full border-b border-secondary/50 pl-[50px]"
+              className="w-full h-full border-b border-secondary/50 pl-[50px] rounded-t-lg"
               type="email"
               value={email}
               placeholder="Enter Your Email"
@@ -143,13 +143,13 @@ const Signin = () => {
             <label
               className={`text-sm font-semibold ${
                 passworderror ? "text-red-500" : "text-secondary"
-              } absolute top-[-13px] left-[50px] bg-white px-2`}
+              } absolute top-[-13px] left-[50px] bg-slate-200 rounded-b-full px-2`}
             >
               Password :
             </label>
             <input
               onChange={handlePassword}
-              className="w-full h-full border-b border-secondary/50 pl-[50px]"
+              className="w-full h-full border-b border-secondary/50 pl-[50px] rounded-t-lg"
               type={passwordshow ? "text" : "password"}
               value={password}
               placeholder="Enter Your Password"
@@ -188,7 +188,7 @@ const Signin = () => {
 
       <div className="w-2/4 h-full">
         <img
-          className="ml-auto w-full h-full object-cover"
+          className="ml-auto w-full h-full "
           src={loginImage}
           alt="Login Background"
         />

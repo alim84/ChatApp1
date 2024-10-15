@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { loginuserinfo } from "../Slices/UserSlice";
+import homeimage from "../assets/Login.webp";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -46,8 +47,9 @@ const Home = () => {
   return (
     <>
       {verify ? (
-        <section className="flex py-9 w-full justify-around">
-          <div>
+        <section className="flex overflow-hidden w-full justify-around bg-red-50">
+          <img className="w-full object-cover" src={homeimage}/>
+          {/* <div>
             <GroupList />
             <FriendRequest />
           </div>
@@ -58,7 +60,7 @@ const Home = () => {
           <div>
             <UserList />
             <BlockedUsers />
-          </div>
+          </div> */}
         </section>
       ) : (
         <div className="w-full h-screen absolute top-0 left-0 bg-red-200/50 flex justify-center items-center">

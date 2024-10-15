@@ -9,6 +9,7 @@ import Signin from "./pages/Signin";
 import Rootlayout from "./layout/Rootlayout";
 import Home from "./pages/Home";
 import Message from "./pages/Massage";
+import Topmenu from "./pages/Topmenu";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Rootlayout />}>
         <Route index element={<Home />}></Route>
         <Route path="/message" element={<Message/>}></Route>
+        <Route path="/topmenu" element={<Topmenu/>}></Route>
       </Route>
     </>
   )

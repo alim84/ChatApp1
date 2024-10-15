@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SignupImage from "../assets/signup.png";
+import SignupImage from "../assets/signup1.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
@@ -102,10 +102,10 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-full h-screen flex">
-      <div className="w-2/4 h-full flex justify-end items-center">
+    <div className="w-full h-screen flex bg-red-100">
+      <div className="w-2/4 h-full flex justify-center items-center">
         <div className="mr-[69px]">
-          <h1 className="text-[34px] font-bold text-secondary">
+          <h1 className="text-[34px]  font-bold text-secondary">
             Get started with easily register
           </h1>
           <p className="text-[20px] font-normal text-black opacity-50">
@@ -219,7 +219,7 @@ const Signup = () => {
 
       <div className="w-2/4 h-full">
         <img
-          className="ml-auto w-full h-full object-cover"
+          className="ml-auto w-full h-full "
           src={SignupImage}
           alt="Signup"
         />
