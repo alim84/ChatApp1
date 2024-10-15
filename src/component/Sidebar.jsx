@@ -8,16 +8,13 @@ import { FaUpload } from "react-icons/fa";
 import { createRef, useState } from "react";
 import React, { useRef } from "react";
 
-import { GiHumanPyramid, GiThreeLeaves } from "react-icons/gi";
-import { FaUserDoctor } from "react-icons/fa6";
-import { PiStudent } from "react-icons/pi";
-import { BiSolidInstitution } from "react-icons/bi";
-import { FaPlaneDeparture } from "react-icons/fa";
+import { FaCodePullRequest } from "react-icons/fa6";
+import { TbFriends } from "react-icons/tb";
+import { GiThreeFriends } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
+import { TbFriendsOff } from "react-icons/tb";
 import { DiAtom } from "react-icons/di";
-import {
-  FaBuildingCircleArrowRight,
-  FaArrowRightToCity,
-} from "react-icons/fa6";
+import { TiGroup } from "react-icons/ti";
 import { FaPeopleGroup } from "react-icons/fa6";
 
 import {
@@ -234,54 +231,84 @@ const Sidebar = () => {
       ;
       <div>
         {toggle && (
-          <div className="absolute translate-x-[200px] translate-y-[-650px] cursor-pointer justify-between items-center w-[200px] h-[400px] rounded-r-xl bg-red-100   transition delay-150 duration-300 ease-in-out shadow-md shadow-slate-200  ">
-            <div className=" flex justify-evenly items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md ">
-              <div className=" w-[30px] h-[30px] flex items-center justify-center m-4 border-4 rounded-full border-pink-600">
-                <FaHome className=" bg-red-100 border-2   mr-2 rounded-full text-primary " />
+          <div className="absolute translate-x-[200px] translate-y-[-860px] cursor-pointer justify-between items-center w-[200px] h-[400px] rounded-r-xl bg-red-100   transition delay-150 duration-300 ease-in-out shadow-md shadow-slate-200  ">
+            <div className=" flex ml-[6px] items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md  mt-2">
+              <div className=" w-[30px] h-[30px] flex items-center justify-center  border-4 rounded-full border-pink-600">
+                <TiGroup className=" bg-red-100 border-2    rounded-full text-pink-600  " />
               </div>
 
               <div>
-                <ul className=" text-lg ">
-                  <li className=" text-primary">
-                    <a href={`/`}>Home</a>
+                <ul className=" text-lg  ">
+                  <li className=" font-bold text-primary ml-[20px]">
+                    <a href={`/`}>Group List</a>
                   </li>
                 </ul>
               </div>
             </div>
+            <div className=" flex ml-[6px] items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md  mt-2">
+              <div className=" w-[30px] h-[30px] flex items-center justify-center  border-4 rounded-full border-pink-600">
+                <FaCodePullRequest className=" bg-red-100 border-2    rounded-full text-pink-600  " />
+              </div>
 
-            <div className=" flex justify-center items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md transition-transform">
-              <GiHumanPyramid className=" w-[20px] h-[20px] bg-red-100 border-2  mr-2 rounded-full text-primary " />
-              <ul className=" ">
-                <li className="text-primary">
-                  <a href={`/personnelshow`}>Friend List</a>
-                </li>
-              </ul>
+              <div>
+                <ul className=" text-lg  ">
+                  <li className=" font-bold text-primary ml-[20px]">
+                    <a href={`/`}>Friend Request</a>
+                  </li>
+                </ul>
+              </div>
             </div>
+            <div className=" flex ml-[6px] items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md  mt-2">
+              <div className=" w-[30px] h-[30px] flex items-center justify-center  border-4 rounded-full border-pink-600">
+                <TbFriends className=" bg-red-100 border-2    rounded-full text-pink-600  " />
+              </div>
 
-            <div className=" flex justify-center items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md transition-transform">
-              <FaUserDoctor className=" w-[20px] h-[20px] bg-red-100 border-2  mr-2 rounded-full text-primary " />
-              <ul className=" ">
-                <li className="text-primary">
-                  <a href={`/doctorshow`}>Group List</a>
-                </li>
-              </ul>
+              <div>
+                <ul className=" text-lg  ">
+                  <li className=" font-bold text-primary ml-[20px]">
+                    <a href={`/`}>Friend List</a>
+                  </li>
+                </ul>
+              </div>
             </div>
+            <div className=" flex ml-[6px] items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md  mt-2">
+              <div className=" w-[30px] h-[30px] flex items-center justify-center  border-4 rounded-full border-pink-600">
+                <GiThreeFriends className=" bg-red-100 border-2    rounded-full text-pink-600  " />
+              </div>
 
-            <div className=" flex justify-center items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md transition-transform">
-              <FaPlaneDeparture className=" w-[20px] h-[20px] bg-red-100 border-2  mr-2 rounded-full text-primary " />
-              <ul className=" ">
-                <li className=" text-primary">
-                  <a href={`/foriegnshow`}>Ungroup List</a>
-                </li>
-              </ul>
+              <div>
+                <ul className=" text-lg  ">
+                  <li className=" font-bold text-primary ml-[20px]">
+                    <a href={`/`}>My Groups</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className=" flex justify-center items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md transition-transform">
-              <PiStudent className=" w-[20px] h-[20px] bg-red-100 border-2  mr-2 rounded-full text-primary " />
-              <ul className=" ">
-                <li className="text-primary">
-                  <a href={`/studentshow`}>Group Create</a>
-                </li>
-              </ul>
+            <div className=" flex ml-[6px] items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md  mt-2">
+              <div className=" w-[30px] h-[30px] flex items-center justify-center  border-4 rounded-full border-pink-600">
+                <FaUser className=" bg-red-100 border-2    rounded-full text-pink-600  " />
+              </div>
+
+              <div>
+                <ul className=" text-lg  ">
+                  <li className=" font-bold text-primary ml-[20px]">
+                    <a href={`/`}>User List</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className=" flex ml-[6px] items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md  mt-2">
+              <div className=" w-[30px] h-[30px] flex items-center justify-center  border-4 rounded-full border-pink-600">
+                <TbFriendsOff className=" bg-red-100 border-2    rounded-full text-pink-600  " />
+              </div>
+
+              <div>
+                <ul className=" text-lg  ">
+                  <li className=" font-bold text-primary ml-[20px]">
+                    <a href={`/`}>Blocked Users</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         )}
