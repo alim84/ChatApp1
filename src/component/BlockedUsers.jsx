@@ -10,6 +10,7 @@ import {
   remove,
   set,
 } from "firebase/database";
+import homeimage from "../assets/Login.webp";
 
 const BlockedUsers = () => {
   let data = useSelector((state) => state.userInfo.value);
@@ -50,12 +51,14 @@ const BlockedUsers = () => {
   };
 
   return (
-    <div className="w-[427px] shadow-2xl rounded-2xl px-5 mt-[43px]">
+<>
+<div className="flex">
+<div className="w-[800px] h-screen shadow-2xl rounded-2xl px-5 mt-[43px]">
       <div className="flex justify-between items-center">
         <h2 className="text-[20px] font-semibold text-black">Blocked Users</h2>
         <BsThreeDotsVertical />
       </div>
-      <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
+      <div className="w-full h-full rounded-2xl  overflow-scroll">
         {blocklist.map((item) => (
           <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
             <div className="flex items-center gap-4">
@@ -99,6 +102,12 @@ const BlockedUsers = () => {
         ))}
       </div>
     </div>
+    <div>
+      <img className="w-screen h-screen" src={homeimage}/>
+
+    </div>
+</div>
+</>
   );
 };
 

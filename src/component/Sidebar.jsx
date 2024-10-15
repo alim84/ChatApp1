@@ -240,7 +240,7 @@ const Sidebar = () => {
               <div>
                 <ul className=" text-lg  ">
                   <li className=" font-bold text-primary ml-[20px]">
-                    <a href={`/`}>Group List</a>
+                    <a href={`/grouplist`}>Group List</a>
                   </li>
                 </ul>
               </div>
@@ -253,7 +253,7 @@ const Sidebar = () => {
               <div>
                 <ul className=" text-lg  ">
                   <li className=" font-bold text-primary ml-[20px]">
-                    <a href={`/`}>Friend Request</a>
+                    <a href={`/friendrequest`}>Friend Request</a>
                   </li>
                 </ul>
               </div>
@@ -266,7 +266,7 @@ const Sidebar = () => {
               <div>
                 <ul className=" text-lg  ">
                   <li className=" font-bold text-primary ml-[20px]">
-                    <a href={`/`}>Friend List</a>
+                    <a href={`/friendlist`}>Friend List</a>
                   </li>
                 </ul>
               </div>
@@ -279,7 +279,7 @@ const Sidebar = () => {
               <div>
                 <ul className=" text-lg  ">
                   <li className=" font-bold text-primary ml-[20px]">
-                    <a href={`/`}>My Groups</a>
+                    <a href={`/mygroup`}>My Groups</a>
                   </li>
                 </ul>
               </div>
@@ -292,7 +292,7 @@ const Sidebar = () => {
               <div>
                 <ul className=" text-lg  ">
                   <li className=" font-bold text-primary ml-[20px]">
-                    <a href={`/`}>User List</a>
+                    <a href={`/userlist`}>User List</a>
                   </li>
                 </ul>
               </div>
@@ -305,7 +305,7 @@ const Sidebar = () => {
               <div>
                 <ul className=" text-lg  ">
                   <li className=" font-bold text-primary ml-[20px]">
-                    <a href={`/`}>Blocked Users</a>
+                    <a href={`/blockeduser`}>Blocked Users</a>
                   </li>
                 </ul>
               </div>

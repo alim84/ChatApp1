@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import moment from "moment/moment";
 import { useSelector } from "react-redux";
 import SigninImage from "../assets/login.jpg";
+import homeimage from "../assets/Login.webp";
 
 const UserList = () => {
   let data = useSelector((state) => state.userInfo.value);
@@ -69,7 +70,9 @@ const UserList = () => {
   };
 
   return (
-    <div className="w-full h-[347px] rounded-2xl  overflow-scroll">
+   <>
+   <div className="flex">
+   <div className="w-[800px] h-screen rounded-2xl  overflow-scroll">
       <div className="w-[427px] shadow-2xl rounded-2xl px-5 ">
         <div className="flex justify-between items-center">
           <h2 className="text-[20px] font-semibold text-black">User List </h2>
@@ -169,6 +172,12 @@ searchList.map((item) => (
         </div>
       ))}
     </div>
+    <div>
+          <img className="w-screen h-screen" src={homeimage} />
+        </div>
+
+   </div>
+   </>
   );
 };
 

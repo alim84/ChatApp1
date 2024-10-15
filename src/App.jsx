@@ -27,7 +27,7 @@ const router = createBrowserRouter(
         <Route path="/message" element={<Message />}></Route>
         <Route path="/topmenu" element={<Topmenu />}></Route>
         <Route path="/friendrequest" element={<FriendRequest />}></Route>
-        <Route path="/blockuser" element={<BlockedUsers />}></Route>
+        <Route path="/blockeduser" element={<BlockedUsers />}></Route>
         <Route path="/friendlist" element={<FriendList />}></Route>
         <Route path="/grouplist" element={<GroupList />}></Route>
         <Route path="/mygroup" element={<MyGroups />}></Route>

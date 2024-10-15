@@ -12,6 +12,7 @@ import {
 } from "firebase/database";
 import { useLocation } from "react-router-dom";
 import { chatingInfo } from "../Slices/ChatSlice";
+import homeimage from "../assets/Login.webp";
 
 const FriendList = () => {
   let dispatch = useDispatch();
@@ -65,62 +66,71 @@ const FriendList = () => {
     }
   };
   return (
-    <div className="w-[427px] shadow-2xl rounded-2xl px-5 ">
-      <div className="flex justify-between items-center">
-        <h2 className="text-[20px] font-semibold text-black">Friend List</h2>
-        <BsThreeDotsVertical />
-      </div>
-      <input
-        className="w-full h-[30px] rounded-md border-1 border-green-500 outline-orange-500 px-5 bg-gray-200 "
-        placeholder="Search..........."
-        type="text"
-      ></input>
-      <div className="w-full rounded-2xl  overflow-scroll">
-        {friendlist.map((item) => (
-          <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
-            <div className="flex items-center gap-4">
-              <img
-                className="w-[70px] h-[70px] rounded-full"
-                src={profileImg}
-                alt=""
-              />
-              <div>
-                {data.uid == item.senderid ? (
-                  <h3 className="text-[18px] font-semibold text-black">
-                    {item.receivername}
-                  </h3>
-                ) : (
-                  <h3 className="text-[18px] font-semibold text-black">
-                    {item.sendername}
-                  </h3>
-                )}
-
-                <p className="text-[14px] font-semibold text-gray-500">
-                  Hi Guys, Wassup!
-                </p>
-              </div>
-            </div>
-            {location.pathname == "/message" ? (
-              <button
-                onClick={() => handleChat(item)}
-                className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
-              >
-                {" "}
-                msg
-              </button>
-            ) : (
-              <button
-                onClick={() => handleBlock(item)}
-                className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
-              >
-                {" "}
-                Block
-              </button>
-            )}
+    <>
+      <div className="flex">
+        <div className="w-[800px] shadow-2xl rounded-2xl px-5 ">
+          <div className="flex justify-between items-center">
+            <h2 className="text-[20px] font-semibold text-black">
+              Friend List
+            </h2>
+            <BsThreeDotsVertical />
           </div>
-        ))}
+          <input
+            className="w-full h-[30px] rounded-md border-1 border-green-500 outline-orange-500 px-5 bg-gray-200 "
+            placeholder="Search..........."
+            type="text"
+          ></input>
+          <div className="w-full h-screen rounded-2xl  overflow-scroll">
+            {friendlist.map((item) => (
+              <div className="flex justify-between items-center mt-[17px] border-b border-black/25 pb-6">
+                <div className="flex items-center gap-4">
+                  <img
+                    className="w-[70px] h-[70px] rounded-full"
+                    src={profileImg}
+                    alt=""
+                  />
+                  <div>
+                    {data.uid == item.senderid ? (
+                      <h3 className="text-[18px] font-semibold text-black">
+                        {item.receivername}
+                      </h3>
+                    ) : (
+                      <h3 className="text-[18px] font-semibold text-black">
+                        {item.sendername}
+                      </h3>
+                    )}
+
+                    <p className="text-[14px] font-semibold text-gray-500">
+                      Hi Guys, Wassup!
+                    </p>
+                  </div>
+                </div>
+                {location.pathname == "/message" ? (
+                  <button
+                    onClick={() => handleChat(item)}
+                    className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
+                  >
+                    {" "}
+                    msg
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleBlock(item)}
+                    className="bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg"
+                  >
+                    {" "}
+                    Block
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <img className="w-screen h-screen" src={homeimage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
