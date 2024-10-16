@@ -231,10 +231,10 @@ const Sidebar = () => {
       ;
       <div>
         {toggle && (
-          <div className="absolute translate-x-[200px] translate-y-[-860px] cursor-pointer justify-between items-center w-[200px] h-[400px] rounded-r-xl bg-red-100   transition delay-150 duration-300 ease-in-out shadow-md shadow-slate-200  ">
+          <div className="absolute translate-x-[200px] translate-y-[-660px] cursor-pointer justify-between items-center w-[200px] h-[400px] rounded-r-xl bg-red-100   transition delay-150 duration-300 ease-in-out shadow-md shadow-slate-200  ">
             <div className=" flex ml-[6px] items-center hover:bg-slate-400 hover:py-2 hover:ml-2 hover:rounded-md  mt-2">
               <div className=" w-[30px] h-[30px] flex items-center justify-center  border-4 rounded-full border-pink-600">
-                <TiGroup className=" bg-red-100 border-2    rounded-full text-pink-600  " />
+                <TiGroup className=" bg-red-100 border-2 rounded-full text-pink-600  " />
               </div>
 
               <div>
